@@ -50,11 +50,11 @@
             </objects>
             <point key="canvasLocation" x="136.23188405797103" y="132.88043478260872"/>
         </scene>
-        <!--Collection View Controller-->
+        <!--Burst Overview Controller-->
         <scene sceneID="6E5-L3-wHd">
             <objects>
-                <collectionViewController id="Iz6-Rp-zRO" customClass="CollectionViewController" customModule="Roll_Cull" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="e6v-D9-xOw">
+                <collectionViewController id="Iz6-Rp-zRO" customClass="BurstOverviewController" customModule="Roll_Cull" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" dataMode="prototypes" id="e6v-D9-xOw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -65,13 +65,26 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="QbN-EZ-bk9">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="burstCell" id="QbN-EZ-bk9" customClass="BurstOverviewCell" customModule="Roll_Cull" customModuleProvider="target">
+                                <rect key="frame" x="7" y="0.0" width="400" height="400"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="400" height="400"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n5R-RZ-BF6">
+                                            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                        </imageView>
+                                    </subviews>
                                 </view>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="n5R-RZ-BF6" secondAttribute="bottom" id="2Jo-jZ-s6g"/>
+                                    <constraint firstAttribute="trailing" secondItem="n5R-RZ-BF6" secondAttribute="trailing" id="Lhj-ee-ySH"/>
+                                </constraints>
+                                <size key="customSize" width="400" height="400"/>
+                                <connections>
+                                    <outlet property="cellImage" destination="n5R-RZ-BF6" id="gdY-Eo-AzL"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -82,7 +95,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n4h-Dv-N4u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="891" y="129"/>
+            <point key="canvasLocation" x="889.85507246376824" y="128.80434782608697"/>
         </scene>
     </scenes>
 </document>

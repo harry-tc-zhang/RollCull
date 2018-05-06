@@ -7,10 +7,17 @@
 //
 
 import UIKit
+import Photos
 
 private let reuseIdentifier = "Cell"
 
-class CollectionViewController: UICollectionViewController {
+class BurstOverviewController: UICollectionViewController {
+    
+    fileprivate let cellIdentifier = "burstCell"
+    var allPhotos: PHFetchResult<PHAsset>!
+    var burstSets = [PHAsset]()
+    let imageManager = PHCachingImageManager()
+    let cellSize = 200
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,9 +26,19 @@ class CollectionViewController: UICollectionViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        //self.collectionView!.register(BurstOverviewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
         print("Burst preview loaded.")
+        
+        let allPhotosOptions = PHFetchOptions()
+        allPhotosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        allPhotos = PHAsset.fetchAssets(with: allPhotosOptions)
+        allPhotos.enumerateObjects{(object, index, stop) -> Void in
+            if object.representsBurst {
+                self.burstSets.append(object)
+            }
+        }
+        print(burstSets.count)
 
         // Do any additional setup after loading the view.
     }
@@ -45,20 +62,28 @@ class CollectionViewController: UICollectionViewController {
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 0
+        return burstSets.count;
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-    
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! BurstOverviewCell
+        
         // Configure the cell
-    
+        let imageSize = CGSize(width: cellSize, height: cellSize);
+        var itemOptions = PHImageRequestOptions();
+        itemOptions.deliveryMode = PHImageRequestOptionsDeliveryMode.highQualityFormat;
+        imageManager.requestImage(for: burstSets[indexPath.item], targetSize: imageSize, contentMode: .aspectFit, options: itemOptions, resultHandler: {image, _ in
+            print(indexPath.item)
+            print(self.burstSets[indexPath.item])
+            cell.cellImage.image = image;
+        })
+        
         return cell
     }
 
