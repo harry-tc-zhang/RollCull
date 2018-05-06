@@ -14,10 +14,15 @@ private let reuseIdentifier = "Cell"
 class BurstOverviewController: UICollectionViewController {
     
     fileprivate let cellIdentifier = "burstCell"
+    fileprivate let segueIdentifier = "burstOperationSegue"
     var allPhotos: PHFetchResult<PHAsset>!
     var burstSets = [PHAsset]()
     let imageManager = PHCachingImageManager()
-    let cellSize = 200
+    fileprivate let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
+    var widthPerItem: CGFloat = 0
+    var burstIdentifierToPass = ""
+    
+    fileprivate let itemsPerRow: CGFloat = 2
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +44,10 @@ class BurstOverviewController: UICollectionViewController {
             }
         }
         print(burstSets.count)
+        
+        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
+        let availableWidth = view.frame.width - paddingSpace
+        widthPerItem = availableWidth / itemsPerRow
 
         // Do any additional setup after loading the view.
     }
@@ -46,6 +55,18 @@ class BurstOverviewController: UICollectionViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! BurstOperationController
+        destinationVC.burstIdentifier = burstIdentifierToPass
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let destinationVC = BurstOperationController()
+        destinationVC.burstIdentifier = burstSets[indexPath.item].burstIdentifier!
+        burstIdentifierToPass = burstSets[indexPath.item].burstIdentifier!
+        self.performSegue(withIdentifier: segueIdentifier, sender: self)
     }
 
     /*
@@ -75,18 +96,27 @@ class BurstOverviewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! BurstOverviewCell
         
         // Configure the cell
-        let imageSize = CGSize(width: cellSize, height: cellSize);
+        let imageSize = CGSize(width: widthPerItem, height: widthPerItem);
         var itemOptions = PHImageRequestOptions();
         itemOptions.deliveryMode = PHImageRequestOptionsDeliveryMode.highQualityFormat;
         imageManager.requestImage(for: burstSets[indexPath.item], targetSize: imageSize, contentMode: .aspectFit, options: itemOptions, resultHandler: {image, _ in
             print(indexPath.item)
             print(self.burstSets[indexPath.item])
             cell.cellImage.image = image;
+            let burstRetrieveOptions = PHFetchOptions()
+            burstRetrieveOptions.includeAllBurstAssets = true
+            let currentBursts = PHAsset.fetchAssets(withBurstIdentifier: self.burstSets[indexPath.item].burstIdentifier!, options: burstRetrieveOptions)
+            print(currentBursts.count)
+            cell.burstCountLabel.text = String(currentBursts.count)
         })
         
         return cell
     }
-
+    /*
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        <#code#>
+    }
+*/
     // MARK: UICollectionViewDelegate
 
     /*
@@ -118,4 +148,29 @@ class BurstOverviewController: UICollectionViewController {
     }
     */
 
+}
+
+// Code lifted from https://www.raywenderlich.com/136159/uicollectionview-tutorial-getting-started
+extension BurstOverviewController : UICollectionViewDelegateFlowLayout {
+    //1
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        //2
+        return CGSize(width: widthPerItem, height: widthPerItem)
+    }
+    
+    //3
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        return sectionInsets
+    }
+    
+    // 4
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return sectionInsets.left
+    }
 }

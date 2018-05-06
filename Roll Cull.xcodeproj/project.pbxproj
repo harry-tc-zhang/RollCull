@@ -21,6 +21,7 @@
 		730CA235209BC01B00AE7073 /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 730CA234209BC01B00AE7073 /* OpenCVWrapper.mm */; };
 		730CA238209CC74000AE7073 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 730CA237209CC74000AE7073 /* UIKit.framework */; };
 		730CA23B209CC78800AE7073 /* OpenCVOps.mm in Sources */ = {isa = PBXBuildFile; fileRef = 730CA23A209CC78800AE7073 /* OpenCVOps.mm */; };
+		732191F5209F889C00805449 /* BurstOperationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732191F4209F889C00805449 /* BurstOperationController.swift */; };
 		73AE2E0D209F5F4600978123 /* BurstOverviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AE2E0C209F5F4600978123 /* BurstOverviewController.swift */; };
 		73AE2E0F209F691000978123 /* BurstOverviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AE2E0E209F691000978123 /* BurstOverviewCell.swift */; };
 /* End PBXBuildFile section */
@@ -46,6 +47,7 @@
 		730CA237209CC74000AE7073 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		730CA239209CC78800AE7073 /* OpenCVOps.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OpenCVOps.h; path = "Roll Cull/OpenCVOps.h"; sourceTree = "<group>"; };
 		730CA23A209CC78800AE7073 /* OpenCVOps.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = OpenCVOps.mm; path = "Roll Cull/OpenCVOps.mm"; sourceTree = "<group>"; };
+		732191F4209F889C00805449 /* BurstOperationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurstOperationController.swift; sourceTree = "<group>"; };
 		73AE2E0C209F5F4600978123 /* BurstOverviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurstOverviewController.swift; sourceTree = "<group>"; };
 		73AE2E0E209F691000978123 /* BurstOverviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurstOverviewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,6 +100,7 @@
 				730CA211209BBAA500AE7073 /* ViewController.swift */,
 				73AE2E0C209F5F4600978123 /* BurstOverviewController.swift */,
 				730CA213209BBAA500AE7073 /* Main.storyboard */,
+				732191F4209F889C00805449 /* BurstOperationController.swift */,
 				73AE2E0E209F691000978123 /* BurstOverviewCell.swift */,
 				730CA216209BBAA600AE7073 /* Assets.xcassets */,
 				730CA218209BBAA600AE7073 /* LaunchScreen.storyboard */,
@@ -197,6 +200,7 @@
 				73AE2E0F209F691000978123 /* BurstOverviewCell.swift in Sources */,
 				730CA235209BC01B00AE7073 /* OpenCVWrapper.mm in Sources */,
 				730CA23B209CC78800AE7073 /* OpenCVOps.mm in Sources */,
+				732191F5209F889C00805449 /* BurstOperationController.swift in Sources */,
 				73AE2E0D209F5F4600978123 /* BurstOverviewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

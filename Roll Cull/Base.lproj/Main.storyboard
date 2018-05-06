@@ -58,31 +58,42 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="MQm-4J-sB8">
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="c9t-GJ-cHf">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="burstCell" id="QbN-EZ-bk9" customClass="BurstOverviewCell" customModule="Roll_Cull" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" reuseIdentifier="burstCell" id="QbN-EZ-bk9" customClass="BurstOverviewCell" customModule="Roll_Cull" customModuleProvider="target">
                                 <rect key="frame" x="7" y="0.0" width="400" height="400"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                     <rect key="frame" x="0.0" y="0.0" width="400" height="400"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n5R-RZ-BF6">
-                                            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n5R-RZ-BF6">
+                                            <rect key="frame" x="0.0" y="0.0" width="400" height="400"/>
                                         </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J8i-m6-IGM">
+                                            <rect key="frame" x="347.66666666666669" y="373.66666666666669" width="52.333333333333314" height="26.333333333333314"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                 </view>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="n5R-RZ-BF6" secondAttribute="bottom" id="2Jo-jZ-s6g"/>
                                     <constraint firstAttribute="trailing" secondItem="n5R-RZ-BF6" secondAttribute="trailing" id="Lhj-ee-ySH"/>
+                                    <constraint firstAttribute="trailing" secondItem="J8i-m6-IGM" secondAttribute="trailing" id="jqi-Rq-2EV"/>
+                                    <constraint firstAttribute="bottom" secondItem="n5R-RZ-BF6" secondAttribute="bottom" id="lx1-LI-c80"/>
+                                    <constraint firstAttribute="bottom" secondItem="J8i-m6-IGM" secondAttribute="bottom" id="t2E-sX-Xd9"/>
+                                    <constraint firstAttribute="trailing" secondItem="n5R-RZ-BF6" secondAttribute="trailing" id="zpQ-TC-apl"/>
                                 </constraints>
                                 <size key="customSize" width="400" height="400"/>
                                 <connections>
+                                    <outlet property="burstCountLabel" destination="J8i-m6-IGM" id="pzz-5P-eU9"/>
                                     <outlet property="cellImage" destination="n5R-RZ-BF6" id="gdY-Eo-AzL"/>
                                 </connections>
                             </collectionViewCell>
@@ -92,10 +103,28 @@
                             <outlet property="delegate" destination="Iz6-Rp-zRO" id="tVE-ZF-C7e"/>
                         </connections>
                     </collectionView>
+                    <connections>
+                        <segue destination="8ov-Cx-rpJ" kind="show" identifier="burstOperationSegue" id="BfY-S6-IPM"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n4h-Dv-N4u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="889.85507246376824" y="128.80434782608697"/>
+        </scene>
+        <!--Burst Operation Controller-->
+        <scene sceneID="AwV-WA-joG">
+            <objects>
+                <viewController id="8ov-Cx-rpJ" customClass="BurstOperationController" customModule="Roll_Cull" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FdT-q3-hKF">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="GY7-TS-yNn"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nSy-o4-9W6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1756" y="130"/>
         </scene>
     </scenes>
 </document>
