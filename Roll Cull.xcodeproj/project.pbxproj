@@ -1,0 +1,411 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		730CA210209BBAA500AE7073 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730CA20F209BBAA500AE7073 /* AppDelegate.swift */; };
+		730CA212209BBAA500AE7073 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730CA211209BBAA500AE7073 /* ViewController.swift */; };
+		730CA215209BBAA500AE7073 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 730CA213209BBAA500AE7073 /* Main.storyboard */; };
+		730CA217209BBAA600AE7073 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 730CA216209BBAA600AE7073 /* Assets.xcassets */; };
+		730CA21A209BBAA600AE7073 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 730CA218209BBAA600AE7073 /* LaunchScreen.storyboard */; };
+		730CA225209BBF0D00AE7073 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 730CA224209BBF0D00AE7073 /* opencv2.framework */; };
+		730CA227209BBF2900AE7073 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 730CA226209BBF2900AE7073 /* AssetsLibrary.framework */; };
+		730CA229209BBF3300AE7073 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 730CA228209BBF3300AE7073 /* CoreGraphics.framework */; };
+		730CA22B209BBF3B00AE7073 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 730CA22A209BBF3B00AE7073 /* CoreMedia.framework */; };
+		730CA22D209BBF4300AE7073 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 730CA22C209BBF4300AE7073 /* CoreFoundation.framework */; };
+		730CA22F209BBF4B00AE7073 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 730CA22E209BBF4B00AE7073 /* Accelerate.framework */; };
+		730CA235209BC01B00AE7073 /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 730CA234209BC01B00AE7073 /* OpenCVWrapper.mm */; };
+		730CA238209CC74000AE7073 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 730CA237209CC74000AE7073 /* UIKit.framework */; };
+		730CA23B209CC78800AE7073 /* OpenCVOps.mm in Sources */ = {isa = PBXBuildFile; fileRef = 730CA23A209CC78800AE7073 /* OpenCVOps.mm */; };
+		73AE2E0D209F5F4600978123 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AE2E0C209F5F4600978123 /* CollectionViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		730CA20C209BBAA500AE7073 /* Roll Cull.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Roll Cull.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		730CA20F209BBAA500AE7073 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		730CA211209BBAA500AE7073 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		730CA214209BBAA500AE7073 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		730CA216209BBAA600AE7073 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		730CA219209BBAA600AE7073 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		730CA21B209BBAA600AE7073 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		730CA224209BBF0D00AE7073 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../../../../Downloads/opencv2.framework; sourceTree = "<group>"; };
+		730CA226209BBF2900AE7073 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		730CA228209BBF3300AE7073 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		730CA22A209BBF3B00AE7073 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		730CA22C209BBF4300AE7073 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		730CA22E209BBF4B00AE7073 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		730CA232209BC01A00AE7073 /* Roll Cull-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Roll Cull-Bridging-Header.h"; sourceTree = "<group>"; };
+		730CA233209BC01B00AE7073 /* OpenCVWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OpenCVWrapper.h; path = "Roll Cull/OpenCVWrapper.h"; sourceTree = "<group>"; };
+		730CA234209BC01B00AE7073 /* OpenCVWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = OpenCVWrapper.mm; path = "Roll Cull/OpenCVWrapper.mm"; sourceTree = "<group>"; };
+		730CA236209BC07800AE7073 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PrefixHeader.pch; path = "Roll Cull/PrefixHeader.pch"; sourceTree = "<group>"; };
+		730CA237209CC74000AE7073 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		730CA239209CC78800AE7073 /* OpenCVOps.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OpenCVOps.h; path = "Roll Cull/OpenCVOps.h"; sourceTree = "<group>"; };
+		730CA23A209CC78800AE7073 /* OpenCVOps.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = OpenCVOps.mm; path = "Roll Cull/OpenCVOps.mm"; sourceTree = "<group>"; };
+		73AE2E0C209F5F4600978123 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		730CA209209BBAA500AE7073 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				730CA238209CC74000AE7073 /* UIKit.framework in Frameworks */,
+				730CA22F209BBF4B00AE7073 /* Accelerate.framework in Frameworks */,
+				730CA22D209BBF4300AE7073 /* CoreFoundation.framework in Frameworks */,
+				730CA22B209BBF3B00AE7073 /* CoreMedia.framework in Frameworks */,
+				730CA229209BBF3300AE7073 /* CoreGraphics.framework in Frameworks */,
+				730CA227209BBF2900AE7073 /* AssetsLibrary.framework in Frameworks */,
+				730CA225209BBF0D00AE7073 /* opencv2.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		730CA203209BBAA500AE7073 = {
+			isa = PBXGroup;
+			children = (
+				730CA233209BC01B00AE7073 /* OpenCVWrapper.h */,
+				730CA234209BC01B00AE7073 /* OpenCVWrapper.mm */,
+				730CA239209CC78800AE7073 /* OpenCVOps.h */,
+				730CA23A209CC78800AE7073 /* OpenCVOps.mm */,
+				730CA236209BC07800AE7073 /* PrefixHeader.pch */,
+				730CA20E209BBAA500AE7073 /* Roll Cull */,
+				730CA20D209BBAA500AE7073 /* Products */,
+				730CA223209BBF0D00AE7073 /* Frameworks */,
+				730CA232209BC01A00AE7073 /* Roll Cull-Bridging-Header.h */,
+			);
+			sourceTree = "<group>";
+		};
+		730CA20D209BBAA500AE7073 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				730CA20C209BBAA500AE7073 /* Roll Cull.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		730CA20E209BBAA500AE7073 /* Roll Cull */ = {
+			isa = PBXGroup;
+			children = (
+				730CA20F209BBAA500AE7073 /* AppDelegate.swift */,
+				730CA211209BBAA500AE7073 /* ViewController.swift */,
+				73AE2E0C209F5F4600978123 /* CollectionViewController.swift */,
+				730CA213209BBAA500AE7073 /* Main.storyboard */,
+				730CA216209BBAA600AE7073 /* Assets.xcassets */,
+				730CA218209BBAA600AE7073 /* LaunchScreen.storyboard */,
+				730CA21B209BBAA600AE7073 /* Info.plist */,
+			);
+			path = "Roll Cull";
+			sourceTree = "<group>";
+		};
+		730CA223209BBF0D00AE7073 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				730CA237209CC74000AE7073 /* UIKit.framework */,
+				730CA22E209BBF4B00AE7073 /* Accelerate.framework */,
+				730CA22C209BBF4300AE7073 /* CoreFoundation.framework */,
+				730CA22A209BBF3B00AE7073 /* CoreMedia.framework */,
+				730CA228209BBF3300AE7073 /* CoreGraphics.framework */,
+				730CA226209BBF2900AE7073 /* AssetsLibrary.framework */,
+				730CA224209BBF0D00AE7073 /* opencv2.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		730CA20B209BBAA500AE7073 /* Roll Cull */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 730CA21E209BBAA600AE7073 /* Build configuration list for PBXNativeTarget "Roll Cull" */;
+			buildPhases = (
+				730CA208209BBAA500AE7073 /* Sources */,
+				730CA209209BBAA500AE7073 /* Frameworks */,
+				730CA20A209BBAA500AE7073 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Roll Cull";
+			productName = "Roll Cull";
+			productReference = 730CA20C209BBAA500AE7073 /* Roll Cull.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		730CA204209BBAA500AE7073 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0930;
+				LastUpgradeCheck = 0930;
+				ORGANIZATIONNAME = "Tiancheng Zhang";
+				TargetAttributes = {
+					730CA20B209BBAA500AE7073 = {
+						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 0930;
+					};
+				};
+			};
+			buildConfigurationList = 730CA207209BBAA500AE7073 /* Build configuration list for PBXProject "Roll Cull" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 730CA203209BBAA500AE7073;
+			productRefGroup = 730CA20D209BBAA500AE7073 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				730CA20B209BBAA500AE7073 /* Roll Cull */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		730CA20A209BBAA500AE7073 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				730CA21A209BBAA600AE7073 /* LaunchScreen.storyboard in Resources */,
+				730CA217209BBAA600AE7073 /* Assets.xcassets in Resources */,
+				730CA215209BBAA500AE7073 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		730CA208209BBAA500AE7073 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				730CA212209BBAA500AE7073 /* ViewController.swift in Sources */,
+				730CA210209BBAA500AE7073 /* AppDelegate.swift in Sources */,
+				730CA235209BC01B00AE7073 /* OpenCVWrapper.mm in Sources */,
+				730CA23B209CC78800AE7073 /* OpenCVOps.mm in Sources */,
+				73AE2E0D209F5F4600978123 /* CollectionViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		730CA213209BBAA500AE7073 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				730CA214209BBAA500AE7073 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		730CA218209BBAA600AE7073 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				730CA219209BBAA600AE7073 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		730CA21C209BBAA600AE7073 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		730CA21D209BBAA600AE7073 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		730CA21F209BBAA600AE7073 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JSCM6DYF6T;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Roll Cull/PrefixHeader.pch";
+				INFOPLIST_FILE = "Roll Cull/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "tiancheng.zhang.Roll-Cull";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Roll Cull-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		730CA220209BBAA600AE7073 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JSCM6DYF6T;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Roll Cull/PrefixHeader.pch";
+				INFOPLIST_FILE = "Roll Cull/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "tiancheng.zhang.Roll-Cull";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Roll Cull-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		730CA207209BBAA500AE7073 /* Build configuration list for PBXProject "Roll Cull" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				730CA21C209BBAA600AE7073 /* Debug */,
+				730CA21D209BBAA600AE7073 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		730CA21E209BBAA600AE7073 /* Build configuration list for PBXNativeTarget "Roll Cull" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				730CA21F209BBAA600AE7073 /* Debug */,
+				730CA220209BBAA600AE7073 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 730CA204209BBAA500AE7073 /* Project object */;
+}
