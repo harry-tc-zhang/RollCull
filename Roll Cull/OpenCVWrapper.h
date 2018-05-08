@@ -17,4 +17,8 @@
 
 + (UIImage*)testCVMatConversionOnUIImage: (UIImage*)image;
 
++ (UIImage*)diffImage: (UIImage*)image1 withImage: (UIImage*)image2;
+
++ (void)analyzeForegroundOnImages: (NSArray*)images;
+
 @end

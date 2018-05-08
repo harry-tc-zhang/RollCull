@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BurstOverviewCell: UICollectionViewCell {
+class GroupOverviewCell: UICollectionViewCell {
     @IBOutlet weak var cellImage: UIImageView!
-    @IBOutlet weak var burstCountLabel: UILabel!
+    @IBOutlet weak var countLabel: UILabel!
 }

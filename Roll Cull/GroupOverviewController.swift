@@ -11,7 +11,7 @@ import Photos
 
 private let reuseIdentifier = "Cell"
 
-class BurstOverviewController: UICollectionViewController {
+class GroupOverviewController: UICollectionViewController {
     
     fileprivate let cellIdentifier = "burstCell"
     fileprivate let segueIdentifier = "burstOperationSegue"
@@ -58,12 +58,12 @@ class BurstOverviewController: UICollectionViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationVC = segue.destination as! BurstOperationController
+        let destinationVC = segue.destination as! GroupOperationController
         destinationVC.burstIdentifier = burstIdentifierToPass
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let destinationVC = BurstOperationController()
+        let destinationVC = GroupOperationController()
         destinationVC.burstIdentifier = burstSets[indexPath.item].burstIdentifier!
         burstIdentifierToPass = burstSets[indexPath.item].burstIdentifier!
         self.performSegue(withIdentifier: segueIdentifier, sender: self)
@@ -93,7 +93,7 @@ class BurstOverviewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! BurstOverviewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! GroupOverviewCell
         
         // Configure the cell
         let imageSize = CGSize(width: widthPerItem, height: widthPerItem);
@@ -107,7 +107,7 @@ class BurstOverviewController: UICollectionViewController {
             burstRetrieveOptions.includeAllBurstAssets = true
             let currentBursts = PHAsset.fetchAssets(withBurstIdentifier: self.burstSets[indexPath.item].burstIdentifier!, options: burstRetrieveOptions)
             print(currentBursts.count)
-            cell.burstCountLabel.text = String(currentBursts.count)
+            cell.countLabel.text = String(currentBursts.count)
         })
         
         return cell
@@ -151,7 +151,7 @@ class BurstOverviewController: UICollectionViewController {
 }
 
 // Code lifted from https://www.raywenderlich.com/136159/uicollectionview-tutorial-getting-started
-extension BurstOverviewController : UICollectionViewDelegateFlowLayout {
+extension GroupOverviewController : UICollectionViewDelegateFlowLayout {
     //1
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,

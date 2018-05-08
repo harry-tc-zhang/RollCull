@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -30,7 +31,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <state key="normal" title="View my bursts"/>
                                 <connections>
-                                    <segue destination="Iz6-Rp-zRO" kind="show" id="y8T-KS-xAM"/>
+                                    <segue destination="Iz6-Rp-zRO" kind="show" id="ENT-T3-j6h"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -50,12 +51,12 @@
             </objects>
             <point key="canvasLocation" x="136.23188405797103" y="132.88043478260872"/>
         </scene>
-        <!--Burst Overview Controller-->
+        <!--Bursts-->
         <scene sceneID="6E5-L3-wHd">
             <objects>
-                <collectionViewController id="Iz6-Rp-zRO" customClass="BurstOverviewController" customModule="Roll_Cull" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController title="Bursts" id="Iz6-Rp-zRO" customClass="GroupOverviewController" customModule="Roll_Cull" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" dataMode="prototypes" id="e6v-D9-xOw">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="c9t-GJ-cHf">
@@ -65,7 +66,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" reuseIdentifier="burstCell" id="QbN-EZ-bk9" customClass="BurstOverviewCell" customModule="Roll_Cull" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" misplaced="YES" reuseIdentifier="burstCell" id="QbN-EZ-bk9" customClass="GroupOverviewCell" customModule="Roll_Cull" customModuleProvider="target">
                                 <rect key="frame" x="7" y="0.0" width="400" height="400"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -76,7 +77,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="400" height="400"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J8i-m6-IGM">
-                                            <rect key="frame" x="347.66666666666669" y="373.66666666666669" width="52.333333333333314" height="26.333333333333314"/>
+                                            <rect key="frame" x="347.66666666666669" y="309.66666666666669" width="52.333333333333314" height="26.333333333333314"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -93,8 +94,8 @@
                                 </constraints>
                                 <size key="customSize" width="400" height="400"/>
                                 <connections>
-                                    <outlet property="burstCountLabel" destination="J8i-m6-IGM" id="pzz-5P-eU9"/>
-                                    <outlet property="cellImage" destination="n5R-RZ-BF6" id="gdY-Eo-AzL"/>
+                                    <outlet property="cellImage" destination="n5R-RZ-BF6" id="tn2-Bj-JBS"/>
+                                    <outlet property="countLabel" destination="J8i-m6-IGM" id="nxJ-u4-vh2"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -103,6 +104,7 @@
                             <outlet property="delegate" destination="Iz6-Rp-zRO" id="tVE-ZF-C7e"/>
                         </connections>
                     </collectionView>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <segue destination="8ov-Cx-rpJ" kind="show" identifier="burstOperationSegue" id="BfY-S6-IPM"/>
                     </connections>
@@ -111,20 +113,88 @@
             </objects>
             <point key="canvasLocation" x="889.85507246376824" y="128.80434782608697"/>
         </scene>
-        <!--Burst Operation Controller-->
+        <!--Burst-->
         <scene sceneID="AwV-WA-joG">
             <objects>
-                <viewController id="8ov-Cx-rpJ" customClass="BurstOperationController" customModule="Roll_Cull" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Burst" id="8ov-Cx-rpJ" customClass="GroupOperationController" customModule="Roll_Cull" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FdT-q3-hKF">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="EyX-BI-laq">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="672" id="X48-QM-0Cw"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="NSG-X0-Z7L">
+                                    <size key="itemSize" width="256" height="262"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" reuseIdentifier="burstPhotoCell" id="BpZ-6j-Qjp" customClass="GroupOperationCell" customModule="Roll_Cull" customModuleProvider="target">
+                                        <rect key="frame" x="7" y="0.0" width="400" height="400"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="400" height="400"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VCG-jj-ST1">
+                                                    <rect key="frame" x="8" y="8" width="384" height="384"/>
+                                                </imageView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P7j-xG-mTi">
+                                                    <rect key="frame" x="347" y="365.66666666666669" width="52.333333333333314" height="26.333333333333314"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="VCG-jj-ST1" firstAttribute="trailing" secondItem="BpZ-6j-Qjp" secondAttribute="trailingMargin" id="4JW-te-8Ah"/>
+                                            <constraint firstItem="VCG-jj-ST1" firstAttribute="top" secondItem="BpZ-6j-Qjp" secondAttribute="topMargin" id="ENZ-cm-fUX"/>
+                                            <constraint firstAttribute="trailing" secondItem="P7j-xG-mTi" secondAttribute="trailing" id="H9T-Yt-Pls"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="P7j-xG-mTi" secondAttribute="bottom" id="gNG-fp-4ra"/>
+                                            <constraint firstItem="VCG-jj-ST1" firstAttribute="bottom" secondItem="BpZ-6j-Qjp" secondAttribute="bottomMargin" id="tsL-v8-W3p"/>
+                                            <constraint firstItem="VCG-jj-ST1" firstAttribute="leading" secondItem="BpZ-6j-Qjp" secondAttribute="leadingMargin" id="w1O-ad-Whl"/>
+                                        </constraints>
+                                        <size key="customSize" width="400" height="400"/>
+                                        <connections>
+                                            <outlet property="cellImage" destination="VCG-jj-ST1" id="VfR-cj-B03"/>
+                                            <outlet property="cellLabel" destination="P7j-xG-mTi" id="Eid-lC-rJf"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="8ov-Cx-rpJ" id="mjF-VO-UIO"/>
+                                    <outlet property="delegate" destination="8ov-Cx-rpJ" id="5jf-Ft-dIg"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="EyX-BI-laq" firstAttribute="leading" secondItem="GY7-TS-yNn" secondAttribute="leading" id="235-Dx-6Uv"/>
+                            <constraint firstItem="EyX-BI-laq" firstAttribute="bottom" secondItem="GY7-TS-yNn" secondAttribute="bottom" id="3Yx-Bc-c4m"/>
+                            <constraint firstItem="EyX-BI-laq" firstAttribute="bottom" secondItem="GY7-TS-yNn" secondAttribute="bottom" id="968-lX-xuC"/>
+                            <constraint firstItem="EyX-BI-laq" firstAttribute="leading" secondItem="GY7-TS-yNn" secondAttribute="leading" id="EKA-iY-ncw"/>
+                            <constraint firstItem="EyX-BI-laq" firstAttribute="trailing" secondItem="GY7-TS-yNn" secondAttribute="trailing" id="IMQ-sL-g9V"/>
+                            <constraint firstItem="EyX-BI-laq" firstAttribute="trailing" secondItem="GY7-TS-yNn" secondAttribute="trailing" id="Iro-lL-8AU"/>
+                            <constraint firstItem="EyX-BI-laq" firstAttribute="trailing" secondItem="GY7-TS-yNn" secondAttribute="trailing" id="O33-Q0-2Ss"/>
+                            <constraint firstItem="EyX-BI-laq" firstAttribute="bottom" secondItem="GY7-TS-yNn" secondAttribute="bottom" id="Xuo-9n-4AB"/>
+                            <constraint firstItem="EyX-BI-laq" firstAttribute="leading" secondItem="GY7-TS-yNn" secondAttribute="leading" id="pr8-VU-Ei0"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="GY7-TS-yNn"/>
                     </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <connections>
+                        <outlet property="burstCollectionView" destination="EyX-BI-laq" id="bMK-XF-47H"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nSy-o4-9W6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1756" y="130"/>
+            <point key="canvasLocation" x="1755.072463768116" y="129.61956521739131"/>
         </scene>
     </scenes>
 </document>

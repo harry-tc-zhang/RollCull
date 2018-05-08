@@ -31,10 +31,10 @@ class ViewController: UIViewController {
         let imageSize = CGSize(width: 1920, height: 1920);
         var itemOptions = PHImageRequestOptions();
         itemOptions.deliveryMode = PHImageRequestOptionsDeliveryMode.highQualityFormat;
-        print(imageSize);
+        //print(imageSize);
         imageManager.requestImage(for: firstAsset, targetSize: imageSize, contentMode: .aspectFit, options: itemOptions, resultHandler: {image, _ in
             self.testImageView.image = OpenCVWrapper.testCVMatConversion(on: image);
-            OpenCVWrapper.getPropsFrom(image)
+            //OpenCVWrapper.getPropsFrom(image)
             // Code below using the iOS Vision API is adapted from https://medium.com/@kravik/ios-11-tutorial-vision-framework-3c836d5ecadd
             let detectFaceRequest = VNDetectFaceRectanglesRequest(completionHandler: {request, error in
                 if let results = request.results as? [VNFaceObservation] {

@@ -33,4 +33,38 @@ using namespace cv;
     return [OpenCVOps UIImageFromCVMat:[OpenCVOps cvMatFromUIImage:image convertColor:true]];
 }
 
++ (UIImage*)diffImage: (UIImage*)image1 withImage: (UIImage*)image2 {
+    Mat mat1 = [OpenCVOps cvMatFromUIImage:image1 convertColor:false];
+    Mat mat2 = [OpenCVOps cvMatFromUIImage:image2 convertColor:false];
+    Mat diffMat;
+    absdiff(mat1, mat2, diffMat);
+    UIImage* debugImage = [OpenCVOps UIImageFromCVMat:diffMat];
+    NSLog(@"Test");
+    return debugImage;
+}
+
++ (void)analyzeForegroundOnImages: (NSArray*)images {
+    Mat tmpMat = [OpenCVOps cvMatFromUIImage:images[0] convertColor:false];
+    Mat accuMat = Mat(tmpMat.rows, tmpMat.cols, CV_32FC4);
+    Mat accuTmp;
+    for(id img in images) {
+        [OpenCVOps cvMatFromUIImage:img convertColor:false].convertTo(accuTmp, CV_32FC4);
+        accumulate(accuTmp, accuMat);
+    }
+    Mat avgMat;
+    accuMat.convertTo(avgMat, CV_8UC4, 1.0 / (float)images.count);
+    
+    Mat diffMat;
+    absdiff([OpenCVOps cvMatFromUIImage:images[1] convertColor:false], avgMat, diffMat);
+    
+    Mat diffGray;
+    cvtColor(diffMat, diffGray, CV_BGRA2GRAY);
+    
+    threshold(diffGray, diffGray, 64, 255, THRESH_BINARY);
+    
+    UIImage* debugImage = [OpenCVOps UIImageFromCVMat:diffGray];
+    
+    return;
+}
+
 @end
