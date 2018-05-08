@@ -19,6 +19,8 @@
 
 + (UIImage*)diffImage: (UIImage*)image1 withImage: (UIImage*)image2;
 
++ (NSDictionary*)evaluateQualityOfFaces: (NSArray*)faces inImage: (UIImage*)image;
+
 + (void)analyzeForegroundOnImages: (NSArray*)images;
 
 @end

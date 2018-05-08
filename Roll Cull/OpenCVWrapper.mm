@@ -67,4 +67,21 @@ using namespace cv;
     return;
 }
 
++ (NSDictionary*)evaluateQualityOfFaces: (NSArray*)faces inImage: (UIImage*)image {
+    NSLog(@"Face evaluation");
+    Mat imgMat = [OpenCVOps cvMatFromUIImage:image convertColor:false];
+    for(int i = 0; i < [faces count]; i ++) {
+        NSArray* face = (NSArray*)faces[i];
+        //float* x = (float*)face[0];
+        //NSLog(@"%@", face->origin);
+        //NSLog(@"%@", face->size);
+        Mat faceRegion = imgMat(cv::Rect([face[0] floatValue], [face[1] floatValue], [face[2] floatValue], [face[3] floatValue]));
+        NSArray* focusInfo = [OpenCVOps getFocusMeasureFromMat:faceRegion withStep:3];
+        NSLog(@"%@", focusInfo);
+        double exposureInfo = [OpenCVOps getAverageExposureOfMat:faceRegion];
+        NSLog(@"%f", exposureInfo);
+    }
+    return [NSMutableDictionary dictionary];
+}
+
 @end

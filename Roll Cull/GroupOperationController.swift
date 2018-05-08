@@ -8,64 +8,91 @@
 
 import UIKit
 import Photos
+import Vision
 
 class GroupOperationController: UIViewController {
     
     fileprivate let cellIdentifier = "burstPhotoCell"
+    fileprivate let sectionHeaderIdentifier = "photoTypeHeader"
     var burstAssets: PHFetchResult<PHAsset>!
-    var burstArray = [PHAsset]()
-    var thumbnails = [UIImage]()
-    var highresPhotos = [UIImage]()
+    var groupedAssets = [String:[PHAsset]]()
+    var thumbnails = [String:[UIImage]]()
+    //var groupedAssets = [String:[UIImage]]()
     let thumbnailManager = PHCachingImageManager()
     let highresManager = PHCachingImageManager()
-    fileprivate let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
+    fileprivate let sectionInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
     var widthPerItem: CGFloat = 200
     fileprivate let itemsPerRow: CGFloat = 2
     
-    @IBOutlet weak var burstCollectionView: UICollectionView!
-    var burstIdentifier: String = ""
+    var assetGroup = [PHAsset]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        print(burstIdentifier)
         
-        let burstRetrieveOptions = PHFetchOptions()
-        burstRetrieveOptions.includeAllBurstAssets = true
-        burstAssets = PHAsset.fetchAssets(withBurstIdentifier: burstIdentifier, options: burstRetrieveOptions)
-        //debugPrint(burstAssets)
+        //debugPrint(assetGroup)
         
+        // Set up layout of collection view
+        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
+        let availableWidth = view.frame.width - paddingSpace
+        widthPerItem = availableWidth / itemsPerRow
+        
+        // Retrieve images
         let itemOptions = PHImageRequestOptions();
         itemOptions.deliveryMode = PHImageRequestOptionsDeliveryMode.highQualityFormat
         itemOptions.resizeMode = PHImageRequestOptionsResizeMode.fast
         itemOptions.isSynchronous = true
         
-        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
-        let availableWidth = view.frame.width - paddingSpace
-        widthPerItem = availableWidth / itemsPerRow
-        
         let thumbnailSize = CGSize(width: widthPerItem, height: widthPerItem);
-        let highresSize = CGSize(width: burstAssets.firstObject!.pixelWidth / 4, height: burstAssets.firstObject!.pixelHeight / 4)
         
-        burstAssets.enumerateObjects{(object, index, stop) -> Void in
-            self.burstArray.append(object)
-            self.thumbnailManager.requestImage(for: object, targetSize: thumbnailSize, contentMode: .aspectFit, options: itemOptions, resultHandler: {image, _ in
-                self.thumbnails.append(image!)
+        for asset in assetGroup {
+            var thumbnail = UIImage()
+            var highres = UIImage()
+            self.thumbnailManager.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill, options: itemOptions, resultHandler: {image, _ in
+                thumbnail = image!
             })
-            
-            //let highresSize = CGSize(width: object.pixelWidth / 4, height: object.pixelHeight / 4)
-            self.highresManager.requestImage(for: object, targetSize: highresSize, contentMode: .aspectFit, options: itemOptions, resultHandler: {image, _ in
-                self.highresPhotos.append(image!)
+            self.highresManager.requestImage(for: asset, targetSize: CGSize(width: asset.pixelWidth / 2, height: asset.pixelHeight / 2), contentMode: .aspectFill, options: itemOptions, resultHandler: {image, _ in
+                highres = image!
             })
+            let detectFaceRequest = VNDetectFaceRectanglesRequest(completionHandler: {request, error in
+                if let results = request.results as? [VNFaceObservation] {
+                    if results.count > 0 {
+                        if self.thumbnails["People"] != nil {
+                            self.thumbnails["People"]!.append(thumbnail)
+                        } else {
+                            self.thumbnails["People"] = [thumbnail]
+                        }
+                        if self.groupedAssets["People"] != nil {
+                            self.groupedAssets["People"]!.append(asset)
+                        } else {
+                            self.groupedAssets["People"] = [asset]
+                        }
+                        
+                        let firstBoundingBox = UIImageOps.getFaceRectFromBoundingBox(image: highres, bbox: results[0].boundingBox)
+                        OpenCVWrapper.evaluateQuality(ofFaces: [[firstBoundingBox.origin.x, firstBoundingBox.origin.y, firstBoundingBox.size.width, firstBoundingBox.size.height]], in: highres)
+                        
+                        //print(results[0].boundingBox)
+                        
+                    } else {
+                        if self.thumbnails["Other"] != nil {
+                            self.thumbnails["Other"]!.append(thumbnail)
+                        } else {
+                            self.thumbnails["Other"] = [thumbnail]
+                        }
+                        if self.groupedAssets["Other"] != nil {
+                            self.groupedAssets["Other"]!.append(asset)
+                        } else {
+                            self.groupedAssets["Other"] = [asset]
+                        }
+                    }
+                }
+            })
+            let vnImage = VNImageRequestHandler(cgImage: highres.cgImage!, options: [:])
+            try? vnImage.perform([detectFaceRequest])
         }
         
-        //OpenCVWrapper.diffImage(highresPhotos[0], with: highresPhotos[2])
-        OpenCVWrapper.analyzeForeground(onImages: highresPhotos)
-        
-        print("viewDidLoad finished.")
-        
-        // Do any additional setup after loading the view.
+        return
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -85,18 +112,26 @@ class GroupOperationController: UIViewController {
 }
 
 extension GroupOperationController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return thumbnails.count;
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionElementKindSectionHeader {
+            let headerItem = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: sectionHeaderIdentifier, for: indexPath) as! GroupOperationSectionHeader
+            headerItem.headerText.text = Array(thumbnails.keys)[indexPath.section]
+            return headerItem
+        }
+        return UICollectionReusableView()
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return thumbnails.count
+        return thumbnails[Array(thumbnails.keys)[section]]!.count;
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! GroupOperationCell
-        cell.cellImage.image = thumbnails[indexPath.item]
-        if burstAssets[indexPath.item].burstSelectionTypes == .autoPick {
-            cell.cellLabel.text = "P"
-        } else {
-            cell.cellLabel.text = ""
-        }
+        cell.cellImage.image = thumbnails[Array(thumbnails.keys)[indexPath.section]]![indexPath.item]
         return cell
     }
 }

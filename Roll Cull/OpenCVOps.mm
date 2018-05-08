@@ -215,28 +215,73 @@ using namespace cv;
     return histogram;
 }
 
++ (double)getAverageExposureOfMat: (cv::Mat)image {
+    Mat labMat;
+    
+    cvtColor(image, labMat, CV_BGR2Lab);
+    
+    vector<Mat> labPlanes;
+    split(labMat, labPlanes);
+    
+    return mean(labPlanes[0])[0];
+}
+
 // Focus measure using measure proposed in work by Nayar and Nakagawa (1994)
 // (Shape from Focus)
-+ (void)getFocusMeasureFromMat: (cv::Mat)image withStep: (int)step {
++ (NSArray*)getFocusMeasureFromMat: (cv::Mat)image withStep: (int)step {
     int kernel_size = step * 2 + 1;
+    
+    Mat bwImage;
+    cvtColor(image, bwImage, COLOR_BGR2GRAY);
+    bwImage.convertTo(bwImage, CV_32F);
+    
     Mat xFilter = Mat::zeros(kernel_size, kernel_size, CV_32F);
     xFilter.at<float>(step, step) = 2;
     xFilter.at<float>(step, 0) = -1;
     xFilter.at<float>(step, step * 2) = -1;
+    
+    Mat xFocusImage;
+    filter2D(bwImage, xFocusImage, -1, xFilter);
+    xFocusImage = abs(xFocusImage);
+    xFocusImage.convertTo(xFocusImage, CV_8U);
+    
+    int xFocusedCount = 0;
+    for(int i = 0; i < xFocusImage.cols; i ++) {
+        double min, max;
+        minMaxIdx(xFocusImage.col(i), &min, &max);
+        //NSLog(@"%f", max);
+        if(max > 10) {
+            xFocusedCount += 1;
+        }
+    }
+    NSLog(@"x: %d/%d", xFocusedCount, xFocusImage.cols);
+    double xFocusCoverage = (float)xFocusedCount / (float)xFocusImage.cols;
     
     Mat yFilter = Mat::zeros(kernel_size, kernel_size, CV_32F);
     yFilter.at<float>(step, step) = 2;
     yFilter.at<float>(0, step) = -1;
     yFilter.at<float>(step * 2, step) = -1;
     
-    Mat bwImage;
-    cvtColor(image, bwImage, COLOR_BGR2GRAY);
+    Mat yFocusImage;
+    filter2D(bwImage, yFocusImage, -1, yFilter);
+    yFocusImage = abs(yFocusImage);
+    yFocusImage.convertTo(yFocusImage, CV_8U);
     
-    Mat xFocusImage;
-    filter2D(bwImage, xFocusImage, -1, xFilter);
-
+    int yFocusedCount = 0;
+    for(int i = 0; i < yFocusImage.rows; i ++) {
+        double min, max;
+        minMaxIdx(yFocusImage.row(i), &min, &max);
+        //NSLog(@"%f", max);
+        if(max > 10) {
+            yFocusedCount += 1;
+        }
+    }
+    NSLog(@"y: %d/%d", yFocusedCount, yFocusImage.rows);
+    double yFocusCoverage = (float)yFocusedCount / (float)yFocusImage.rows;
+    
     UIImage* debugImage = [OpenCVOps UIImageFromCVMat:xFocusImage];
-    NSLog(@"Debug checking image");
+    UIImage* debugImage2 = [OpenCVOps UIImageFromCVMat:yFocusImage];
+    return [NSArray arrayWithObjects:[NSNumber numberWithFloat:xFocusCoverage], [NSNumber numberWithFloat:yFocusCoverage], nil];
 }
 
 @end

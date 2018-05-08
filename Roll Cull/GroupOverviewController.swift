@@ -16,11 +16,13 @@ class GroupOverviewController: UICollectionViewController {
     fileprivate let cellIdentifier = "burstCell"
     fileprivate let segueIdentifier = "burstOperationSegue"
     var allPhotos: PHFetchResult<PHAsset>!
-    var burstSets = [PHAsset]()
+    var locationSets = [String:[PHAsset]]()
+    var locationKeys = [String]()
     let imageManager = PHCachingImageManager()
-    fileprivate let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
+    fileprivate let sectionInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
     var widthPerItem: CGFloat = 0
-    var burstIdentifierToPass = ""
+    var locOfGroupToPass: String = ""
+    let locRoundPower: Double = 100
     
     fileprivate let itemsPerRow: CGFloat = 2
 
@@ -39,11 +41,28 @@ class GroupOverviewController: UICollectionViewController {
         allPhotosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         allPhotos = PHAsset.fetchAssets(with: allPhotosOptions)
         allPhotos.enumerateObjects{(object, index, stop) -> Void in
-            if object.representsBurst {
-                self.burstSets.append(object)
+            if let cdate = object.creationDate {
+                let interval = cdate.timeIntervalSinceNow
+                if (-interval) / (24 * 60 * 60) > 7 {
+                    stop.pointee = true
+                }
+            }
+            if let loc = object.location {
+                let roughLat = Double(round(loc.coordinate.latitude * self.locRoundPower) / self.locRoundPower)
+                let roughLong = Double(round(loc.coordinate.longitude * self.locRoundPower) / self.locRoundPower)
+                var roughDays = 0
+                if let cdate = object.creationDate {
+                    roughDays = Int(round((-cdate.timeIntervalSinceNow) / (24 * 60 * 60)))
+                }
+                let roughLocStr = "lat\(roughLat)long\(roughLong)day\(roughDays)"
+                if self.locationSets[roughLocStr] != nil {
+                    self.locationSets[roughLocStr]!.append(object)
+                } else {
+                    self.locationSets[roughLocStr] = [object]
+                    self.locationKeys.append(roughLocStr)
+                }
             }
         }
-        print(burstSets.count)
         
         let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
         let availableWidth = view.frame.width - paddingSpace
@@ -59,13 +78,11 @@ class GroupOverviewController: UICollectionViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! GroupOperationController
-        destinationVC.burstIdentifier = burstIdentifierToPass
+        destinationVC.assetGroup = locationSets[locOfGroupToPass]!;
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let destinationVC = GroupOperationController()
-        destinationVC.burstIdentifier = burstSets[indexPath.item].burstIdentifier!
-        burstIdentifierToPass = burstSets[indexPath.item].burstIdentifier!
+        locOfGroupToPass = locationKeys[indexPath.item]
         self.performSegue(withIdentifier: segueIdentifier, sender: self)
     }
 
@@ -88,8 +105,7 @@ class GroupOverviewController: UICollectionViewController {
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return burstSets.count;
+        return locationSets.count;
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -97,17 +113,12 @@ class GroupOverviewController: UICollectionViewController {
         
         // Configure the cell
         let imageSize = CGSize(width: widthPerItem, height: widthPerItem);
-        var itemOptions = PHImageRequestOptions();
+        let itemOptions = PHImageRequestOptions();
         itemOptions.deliveryMode = PHImageRequestOptionsDeliveryMode.highQualityFormat;
-        imageManager.requestImage(for: burstSets[indexPath.item], targetSize: imageSize, contentMode: .aspectFit, options: itemOptions, resultHandler: {image, _ in
-            print(indexPath.item)
-            print(self.burstSets[indexPath.item])
+        imageManager.requestImage(for: locationSets[locationKeys[indexPath.item]]![0], targetSize: imageSize, contentMode: .aspectFill, options: itemOptions, resultHandler: {image, _ in
+            //print(self.burstSets[indexPath.item])
             cell.cellImage.image = image;
-            let burstRetrieveOptions = PHFetchOptions()
-            burstRetrieveOptions.includeAllBurstAssets = true
-            let currentBursts = PHAsset.fetchAssets(withBurstIdentifier: self.burstSets[indexPath.item].burstIdentifier!, options: burstRetrieveOptions)
-            print(currentBursts.count)
-            cell.countLabel.text = String(currentBursts.count)
+            cell.countLabel.text = String(self.locationSets[self.locationKeys[indexPath.item]]!.count)
         })
         
         return cell

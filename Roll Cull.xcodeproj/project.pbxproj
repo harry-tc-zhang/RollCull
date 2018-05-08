@@ -22,6 +22,8 @@
 		730CA238209CC74000AE7073 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 730CA237209CC74000AE7073 /* UIKit.framework */; };
 		730CA23B209CC78800AE7073 /* OpenCVOps.mm in Sources */ = {isa = PBXBuildFile; fileRef = 730CA23A209CC78800AE7073 /* OpenCVOps.mm */; };
 		732191F5209F889C00805449 /* GroupOperationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732191F4209F889C00805449 /* GroupOperationController.swift */; };
+		7363590C20A21E6100A3C722 /* GroupOperationSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7363590B20A21E6100A3C722 /* GroupOperationSectionHeader.swift */; };
+		7363590E20A238EE00A3C722 /* UIImageOps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7363590D20A238EE00A3C722 /* UIImageOps.swift */; };
 		73A911E620A0A1D60053048F /* GroupOperationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A911E520A0A1D60053048F /* GroupOperationCell.swift */; };
 		73AE2E0D209F5F4600978123 /* GroupOverviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AE2E0C209F5F4600978123 /* GroupOverviewController.swift */; };
 		73AE2E0F209F691000978123 /* GroupOverviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AE2E0E209F691000978123 /* GroupOverviewCell.swift */; };
@@ -49,6 +51,8 @@
 		730CA239209CC78800AE7073 /* OpenCVOps.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OpenCVOps.h; path = "Roll Cull/OpenCVOps.h"; sourceTree = "<group>"; };
 		730CA23A209CC78800AE7073 /* OpenCVOps.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = OpenCVOps.mm; path = "Roll Cull/OpenCVOps.mm"; sourceTree = "<group>"; };
 		732191F4209F889C00805449 /* GroupOperationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupOperationController.swift; sourceTree = "<group>"; };
+		7363590B20A21E6100A3C722 /* GroupOperationSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupOperationSectionHeader.swift; sourceTree = "<group>"; };
+		7363590D20A238EE00A3C722 /* UIImageOps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageOps.swift; sourceTree = "<group>"; };
 		73A911E520A0A1D60053048F /* GroupOperationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupOperationCell.swift; sourceTree = "<group>"; };
 		73AE2E0C209F5F4600978123 /* GroupOverviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupOverviewController.swift; sourceTree = "<group>"; };
 		73AE2E0E209F691000978123 /* GroupOverviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupOverviewCell.swift; sourceTree = "<group>"; };
@@ -98,10 +102,12 @@
 		730CA20E209BBAA500AE7073 /* Roll Cull */ = {
 			isa = PBXGroup;
 			children = (
+				7363590D20A238EE00A3C722 /* UIImageOps.swift */,
 				730CA20F209BBAA500AE7073 /* AppDelegate.swift */,
 				730CA211209BBAA500AE7073 /* ViewController.swift */,
 				73AE2E0C209F5F4600978123 /* GroupOverviewController.swift */,
 				730CA213209BBAA500AE7073 /* Main.storyboard */,
+				7363590B20A21E6100A3C722 /* GroupOperationSectionHeader.swift */,
 				732191F4209F889C00805449 /* GroupOperationController.swift */,
 				73A911E520A0A1D60053048F /* GroupOperationCell.swift */,
 				73AE2E0E209F691000978123 /* GroupOverviewCell.swift */,
@@ -204,8 +210,10 @@
 				730CA235209BC01B00AE7073 /* OpenCVWrapper.mm in Sources */,
 				73A911E620A0A1D60053048F /* GroupOperationCell.swift in Sources */,
 				730CA23B209CC78800AE7073 /* OpenCVOps.mm in Sources */,
+				7363590E20A238EE00A3C722 /* UIImageOps.swift in Sources */,
 				732191F5209F889C00805449 /* GroupOperationController.swift in Sources */,
 				73AE2E0D209F5F4600978123 /* GroupOverviewController.swift in Sources */,
+				7363590C20A21E6100A3C722 /* GroupOperationSectionHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

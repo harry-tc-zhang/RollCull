@@ -20,6 +20,8 @@
 
 + (NSArray*)getPixelBrightnessHistogramFromMat: (cv::Mat)image withBins: (int)histSize;
 
-+ (void)getFocusMeasureFromMat: (cv::Mat)image withStep: (int)step;
++ (double)getAverageExposureOfMat: (cv::Mat)image;
+
++ (NSArray*)getFocusMeasureFromMat: (cv::Mat)image withStep: (int)step;
 
 @end

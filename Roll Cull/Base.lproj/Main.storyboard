@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="14o-Yn-c4V">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Roll Cull-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Roll_Cull" customModuleProvider="target" sceneMemberID="viewController">
@@ -19,13 +19,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="U8A-ox-zcm">
-                                <rect key="frame" x="0.0" y="20" width="414" height="240"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="240" id="Lpf-df-7hE"/>
-                                    <constraint firstAttribute="height" constant="240" id="Nwp-nE-WIS"/>
-                                </constraints>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vKM-IX-8z5">
                                 <rect key="frame" x="155" y="686" width="105" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -34,6 +27,13 @@
                                     <segue destination="Iz6-Rp-zRO" kind="show" id="ENT-T3-j6h"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U8A-ox-zcm">
+                                <rect key="frame" x="0.0" y="64" width="414" height="240"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="240" id="Lpf-df-7hE"/>
+                                    <constraint firstAttribute="height" constant="240" id="Nwp-nE-WIS"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -43,6 +43,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Roll Cull" id="sZ0-yR-aZT"/>
                     <connections>
                         <outlet property="testImageView" destination="U8A-ox-zcm" id="Jtp-T5-rlq"/>
                     </connections>
@@ -51,10 +52,10 @@
             </objects>
             <point key="canvasLocation" x="136.23188405797103" y="132.88043478260872"/>
         </scene>
-        <!--Bursts-->
+        <!--Photo Groups-->
         <scene sceneID="6E5-L3-wHd">
             <objects>
-                <collectionViewController title="Bursts" id="Iz6-Rp-zRO" customClass="GroupOverviewController" customModule="Roll_Cull" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController title="Photo Groups" id="Iz6-Rp-zRO" customClass="GroupOverviewController" customModule="Roll_Cull" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" dataMode="prototypes" id="e6v-D9-xOw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -113,29 +114,45 @@
             </objects>
             <point key="canvasLocation" x="889.85507246376824" y="128.80434782608697"/>
         </scene>
-        <!--Burst-->
+        <!--Navigation Controller-->
+        <scene sceneID="v3H-MZ-pfG">
+            <objects>
+                <navigationController id="14o-Yn-c4V" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="SWN-wE-Iui">
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="qKZ-lK-CIY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xpE-GY-AKL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-732" y="133"/>
+        </scene>
+        <!--Photos-->
         <scene sceneID="AwV-WA-joG">
             <objects>
-                <viewController title="Burst" id="8ov-Cx-rpJ" customClass="GroupOperationController" customModule="Roll_Cull" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Photos" id="8ov-Cx-rpJ" customClass="GroupOperationController" customModule="Roll_Cull" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FdT-q3-hKF">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="EyX-BI-laq">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="672" id="X48-QM-0Cw"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="NSG-X0-Z7L">
                                     <size key="itemSize" width="256" height="262"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="headerReferenceSize" width="50" height="50"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" reuseIdentifier="burstPhotoCell" id="BpZ-6j-Qjp" customClass="GroupOperationCell" customModule="Roll_Cull" customModuleProvider="target">
-                                        <rect key="frame" x="7" y="0.0" width="400" height="400"/>
+                                        <rect key="frame" x="7" y="50" width="400" height="400"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="400" height="400"/>
@@ -167,6 +184,24 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="photoTypeHeader" id="qJR-6b-6iv" customClass="GroupOperationSectionHeader" customModule="Roll_Cull" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Pu-8D-rwb">
+                                            <rect key="frame" x="15" y="15" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="4Pu-8D-rwb" firstAttribute="leading" secondItem="qJR-6b-6iv" secondAttribute="leading" constant="15" id="5i4-yc-uYk"/>
+                                    </constraints>
+                                    <connections>
+                                        <outlet property="headerText" destination="4Pu-8D-rwb" id="I1Y-UP-v0K"/>
+                                    </connections>
+                                </collectionReusableView>
                                 <connections>
                                     <outlet property="dataSource" destination="8ov-Cx-rpJ" id="mjF-VO-UIO"/>
                                     <outlet property="delegate" destination="8ov-Cx-rpJ" id="5jf-Ft-dIg"/>
@@ -187,10 +222,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GY7-TS-yNn"/>
                     </view>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
-                    <connections>
-                        <outlet property="burstCollectionView" destination="EyX-BI-laq" id="bMK-XF-47H"/>
-                    </connections>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nSy-o4-9W6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
