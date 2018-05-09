@@ -23,4 +23,6 @@
 
 + (void)analyzeForegroundOnImages: (NSArray*)images;
 
++ (void)evaluateQuaityOfImage: (UIImage*)image;
+
 @end

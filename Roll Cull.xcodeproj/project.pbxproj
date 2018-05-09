@@ -24,6 +24,7 @@
 		732191F5209F889C00805449 /* GroupOperationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732191F4209F889C00805449 /* GroupOperationController.swift */; };
 		7363590C20A21E6100A3C722 /* GroupOperationSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7363590B20A21E6100A3C722 /* GroupOperationSectionHeader.swift */; };
 		7363590E20A238EE00A3C722 /* UIImageOps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7363590D20A238EE00A3C722 /* UIImageOps.swift */; };
+		7363591020A2675600A3C722 /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7363590F20A2675600A3C722 /* ImageDetailViewController.swift */; };
 		73A911E620A0A1D60053048F /* GroupOperationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A911E520A0A1D60053048F /* GroupOperationCell.swift */; };
 		73AE2E0D209F5F4600978123 /* GroupOverviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AE2E0C209F5F4600978123 /* GroupOverviewController.swift */; };
 		73AE2E0F209F691000978123 /* GroupOverviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AE2E0E209F691000978123 /* GroupOverviewCell.swift */; };
@@ -53,6 +54,7 @@
 		732191F4209F889C00805449 /* GroupOperationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupOperationController.swift; sourceTree = "<group>"; };
 		7363590B20A21E6100A3C722 /* GroupOperationSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupOperationSectionHeader.swift; sourceTree = "<group>"; };
 		7363590D20A238EE00A3C722 /* UIImageOps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageOps.swift; sourceTree = "<group>"; };
+		7363590F20A2675600A3C722 /* ImageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailViewController.swift; sourceTree = "<group>"; };
 		73A911E520A0A1D60053048F /* GroupOperationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupOperationCell.swift; sourceTree = "<group>"; };
 		73AE2E0C209F5F4600978123 /* GroupOverviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupOverviewController.swift; sourceTree = "<group>"; };
 		73AE2E0E209F691000978123 /* GroupOverviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupOverviewCell.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 		730CA20E209BBAA500AE7073 /* Roll Cull */ = {
 			isa = PBXGroup;
 			children = (
+				7363590F20A2675600A3C722 /* ImageDetailViewController.swift */,
 				7363590D20A238EE00A3C722 /* UIImageOps.swift */,
 				730CA20F209BBAA500AE7073 /* AppDelegate.swift */,
 				730CA211209BBAA500AE7073 /* ViewController.swift */,
@@ -206,6 +209,7 @@
 			files = (
 				730CA212209BBAA500AE7073 /* ViewController.swift in Sources */,
 				730CA210209BBAA500AE7073 /* AppDelegate.swift in Sources */,
+				7363591020A2675600A3C722 /* ImageDetailViewController.swift in Sources */,
 				73AE2E0F209F691000978123 /* GroupOverviewCell.swift in Sources */,
 				730CA235209BC01B00AE7073 /* OpenCVWrapper.mm in Sources */,
 				73A911E620A0A1D60053048F /* GroupOperationCell.swift in Sources */,

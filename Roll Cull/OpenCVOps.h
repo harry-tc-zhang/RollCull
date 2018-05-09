@@ -24,4 +24,12 @@
 
 + (NSArray*)getFocusMeasureFromMat: (cv::Mat)image withStep: (int)step;
 
++ (void)getAWBInfoOfMat: (cv::Mat)image;
+
++ (double)getTextureDensityOfMat: (cv::Mat)image;
+
++ (double)getContrastOfMat: (cv::Mat)image;
+
++ (double)getSaturationOfMat: (cv::Mat)image;
+
 @end

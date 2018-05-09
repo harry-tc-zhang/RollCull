@@ -14,7 +14,6 @@ class GroupOperationController: UIViewController {
     
     fileprivate let cellIdentifier = "burstPhotoCell"
     fileprivate let sectionHeaderIdentifier = "photoTypeHeader"
-    var burstAssets: PHFetchResult<PHAsset>!
     var groupedAssets = [String:[PHAsset]]()
     var thumbnails = [String:[UIImage]]()
     //var groupedAssets = [String:[UIImage]]()
@@ -23,6 +22,9 @@ class GroupOperationController: UIViewController {
     fileprivate let sectionInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
     var widthPerItem: CGFloat = 200
     fileprivate let itemsPerRow: CGFloat = 2
+    
+    fileprivate let segueIdentifier = "showDetailsSegue"
+    var assetToPass = PHAsset()
     
     var assetGroup = [PHAsset]()
     
@@ -93,6 +95,11 @@ class GroupOperationController: UIViewController {
         return
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! ImageDetailViewController
+        destinationVC.asset = assetToPass
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -137,7 +144,10 @@ extension GroupOperationController: UICollectionViewDataSource {
 }
 
 extension GroupOperationController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        assetToPass = groupedAssets[Array(groupedAssets.keys)[indexPath.section]]![indexPath.item]
+        self.performSegue(withIdentifier: segueIdentifier, sender: self)
+    }
 }
 
 

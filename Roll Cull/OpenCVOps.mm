@@ -254,7 +254,7 @@ using namespace cv;
             xFocusedCount += 1;
         }
     }
-    NSLog(@"x: %d/%d", xFocusedCount, xFocusImage.cols);
+    //NSLog(@"x: %d/%d", xFocusedCount, xFocusImage.cols);
     double xFocusCoverage = (float)xFocusedCount / (float)xFocusImage.cols;
     
     Mat yFilter = Mat::zeros(kernel_size, kernel_size, CV_32F);
@@ -276,12 +276,89 @@ using namespace cv;
             yFocusedCount += 1;
         }
     }
-    NSLog(@"y: %d/%d", yFocusedCount, yFocusImage.rows);
+    //NSLog(@"y: %d/%d", yFocusedCount, yFocusImage.rows);
     double yFocusCoverage = (float)yFocusedCount / (float)yFocusImage.rows;
     
     UIImage* debugImage = [OpenCVOps UIImageFromCVMat:xFocusImage];
     UIImage* debugImage2 = [OpenCVOps UIImageFromCVMat:yFocusImage];
     return [NSArray arrayWithObjects:[NSNumber numberWithFloat:xFocusCoverage], [NSNumber numberWithFloat:yFocusCoverage], nil];
+}
+
++ (double)getTextureDensityOfMat: (cv::Mat)image {
+    // Create a Laplacian filter
+    Mat filter = Mat::ones(3, 3, CV_32F);
+    filter.at<float>(1, 1) = -8;
+    
+    Mat bwImage;
+    cvtColor(image, bwImage, CV_BGRA2GRAY);
+    
+    Mat floatMat;
+    bwImage.convertTo(floatMat, CV_32F);
+    
+    filter2D(floatMat, floatMat, -1, filter);
+    floatMat = abs(floatMat);
+    
+    int dilationSize = 5;
+    int dilationType = MORPH_RECT;
+    
+    Mat element = getStructuringElement(dilationType,
+                                        cv::Size(2 * dilationSize + 1, 2 * dilationSize + 1),
+                                        cv::Point(dilationSize, dilationSize));
+    
+    dilate(floatMat, floatMat, Mat());
+    
+    Mat uintMat;
+    floatMat.convertTo(uintMat, CV_8U);
+    
+    threshold(uintMat, uintMat, 64, 255, THRESH_BINARY);
+    
+    UIImage* debugImage = [OpenCVOps UIImageFromCVMat:uintMat];
+    
+    double density = 0;
+    double textureCount = 0;
+    for(int i = 0; i < uintMat.rows; i ++) {
+        for(int j = 0; j < uintMat.cols; j ++) {
+            if(uintMat.at<uchar>(i, j) > 0) {
+                textureCount += 1;
+            }
+        }
+    }
+    density = textureCount / (double)(uintMat.rows * uintMat.cols);
+    
+    return density;
+}
+
++ (double)getContrastOfMat: (cv::Mat)image {
+    // Measures image contrast by the image's standard deviation
+    
+    /*
+    // The following code which tried to use histogram equalization doesn't quite work.
+    Mat bwImage;
+    cvtColor(image, bwImage, CV_RGBA2GRAY);
+    
+    Mat eqImg;
+    equalizeHist(bwImage, eqImg);
+    
+    Mat flBwImg, flEqImg;
+    bwImage.convertTo(flBwImg, CV_32F);
+    eqImg.convertTo(flEqImg, CV_32F);
+    flBwImg = abs(flBwImg - flEqImg);
+     */
+    
+    Mat bwImage;
+    cvtColor(image, bwImage, CV_BGRA2GRAY);
+    
+    Scalar mean, stdDev;
+    meanStdDev(bwImage, mean, stdDev);
+    return stdDev[0];
+}
+
++ (double)getSaturationOfMat: (cv::Mat)image {
+    Mat cvtdImage;
+    cvtColor(image, cvtdImage, CV_BGRA2BGR);
+    cvtColor(cvtdImage, cvtdImage, CV_BGR2HSV);
+    
+    return mean(cvtdImage)[1];
 }
 
 @end

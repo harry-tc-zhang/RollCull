@@ -72,9 +72,6 @@ using namespace cv;
     Mat imgMat = [OpenCVOps cvMatFromUIImage:image convertColor:false];
     for(int i = 0; i < [faces count]; i ++) {
         NSArray* face = (NSArray*)faces[i];
-        //float* x = (float*)face[0];
-        //NSLog(@"%@", face->origin);
-        //NSLog(@"%@", face->size);
         Mat faceRegion = imgMat(cv::Rect([face[0] floatValue], [face[1] floatValue], [face[2] floatValue], [face[3] floatValue]));
         NSArray* focusInfo = [OpenCVOps getFocusMeasureFromMat:faceRegion withStep:3];
         NSLog(@"%@", focusInfo);
@@ -82,6 +79,34 @@ using namespace cv;
         NSLog(@"%f", exposureInfo);
     }
     return [NSMutableDictionary dictionary];
+}
+
++ (void)evaluateQuaityOfImage: (UIImage*)image {
+    int gridNum = 5;
+    int gridWidth = (int)(image.size.width / gridNum);
+    int gridHeight = (int)(image.size.height / gridNum);
+    
+    Mat imgMat = [OpenCVOps cvMatFromUIImage:image convertColor:false];
+    double imgExposure = [OpenCVOps getAverageExposureOfMat:imgMat];
+    
+    for(int j = 0; j < gridNum; j ++) {
+        for(int i = 0; i < gridNum; i ++) {
+            cv::Rect rect(i * gridWidth, j * gridHeight, gridWidth, gridHeight);
+            Mat currentRegion = imgMat(rect);
+            double regionExposure = [OpenCVOps getAverageExposureOfMat:currentRegion];
+            NSLog(@"Diff for region (%d, %d): %f", j, i, (regionExposure - imgExposure));
+            double textureDensity = [OpenCVOps getTextureDensityOfMat:currentRegion];
+            NSLog(@"Texture density for region (%d, %d): %f", j, i, textureDensity);
+        }
+    }
+    
+    double imgContrast = [OpenCVOps getContrastOfMat:imgMat];
+    NSLog(@"Image contrast is %f", imgContrast);
+    
+    double imgSaturation = [OpenCVOps getSaturationOfMat:imgMat];
+    NSLog(@"Image saturation is %f", imgSaturation);
+    
+    return;
 }
 
 @end
