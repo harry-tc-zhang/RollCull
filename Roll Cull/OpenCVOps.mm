@@ -354,11 +354,55 @@ using namespace cv;
 }
 
 + (double)getSaturationOfMat: (cv::Mat)image {
+    // Measures image saturation by converting to HSV and getting
+    // the mean of HSV channels
+    
     Mat cvtdImage;
     cvtColor(image, cvtdImage, CV_BGRA2BGR);
     cvtColor(cvtdImage, cvtdImage, CV_BGR2HSV);
     
     return mean(cvtdImage)[1];
+}
+
++ (double)getSymmetryOfMat: (cv::Mat)image {
+    // Measures image symmetry w.r.t the middle vertical line, which honesly
+    // is what matters in most photos, by flipping the left half of the image
+    // and comparing it with the right half
+    
+    cv::Rect leftRect(0, 0, image.cols / 2, image.rows);
+    cv::Rect rightRect(image.cols / 2, 0, image.cols / 2, image.rows);
+    
+    Mat edgeMat;
+    Canny(image, edgeMat, 50, 200);
+    
+    Mat leftFlipped;
+    flip(edgeMat(leftRect), leftFlipped, 1);
+    resize(leftFlipped, leftFlipped, cv::Size(), 0.1, 0.1);
+    GaussianBlur(leftFlipped, leftFlipped, cv::Size(21, 21), 5);
+    leftFlipped.convertTo(leftFlipped, CV_32F);
+    
+    Mat right = edgeMat(rightRect);
+    resize(right, right, cv::Size(), 0.1, 0.1);
+    GaussianBlur(right, right, cv::Size(21, 21), 5);
+    right.convertTo(right, CV_32F);
+    
+    Mat diffMat = abs(leftFlipped - right);
+    diffMat.convertTo(diffMat, CV_8U);
+    
+    threshold(diffMat, diffMat, 32, 255, THRESH_BINARY);
+    
+    double overlapCount = 0;
+    for(int i = 0; i < diffMat.rows; i ++) {
+        for(int j = 0; j < diffMat.cols; j ++) {
+            if(diffMat.at<uint>(i, j) < 5) {
+                overlapCount += 1;
+            }
+        }
+    }
+    
+    UIImage* debugImage = [OpenCVOps UIImageFromCVMat:diffMat];
+    
+    return overlapCount / (double)(right.rows * right.cols);
 }
 
 @end

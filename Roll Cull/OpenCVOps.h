@@ -32,4 +32,6 @@
 
 + (double)getSaturationOfMat: (cv::Mat)image;
 
++ (double)getSymmetryOfMat: (cv::Mat)image;
+
 @end

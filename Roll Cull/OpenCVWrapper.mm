@@ -100,11 +100,16 @@ using namespace cv;
         }
     }
     
+    NSLog(@"Image exposure is %f", imgExposure);
+    
     double imgContrast = [OpenCVOps getContrastOfMat:imgMat];
     NSLog(@"Image contrast is %f", imgContrast);
     
     double imgSaturation = [OpenCVOps getSaturationOfMat:imgMat];
     NSLog(@"Image saturation is %f", imgSaturation);
+    
+    double imageSymmetry = [OpenCVOps getSymmetryOfMat:imgMat];
+    NSLog(@"Image symmetry is %f", imageSymmetry);
     
     return;
 }
