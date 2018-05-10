@@ -250,7 +250,7 @@ using namespace cv;
         double min, max;
         minMaxIdx(xFocusImage.col(i), &min, &max);
         //NSLog(@"%f", max);
-        if(max > 10) {
+        if(max > 16) {
             xFocusedCount += 1;
         }
     }
@@ -272,7 +272,7 @@ using namespace cv;
         double min, max;
         minMaxIdx(yFocusImage.row(i), &min, &max);
         //NSLog(@"%f", max);
-        if(max > 10) {
+        if(max > 16) {
             yFocusedCount += 1;
         }
     }
@@ -298,7 +298,7 @@ using namespace cv;
     filter2D(floatMat, floatMat, -1, filter);
     floatMat = abs(floatMat);
     
-    int dilationSize = 5;
+    int dilationSize = 10;
     int dilationType = MORPH_RECT;
     
     Mat element = getStructuringElement(dilationType,
@@ -310,7 +310,7 @@ using namespace cv;
     Mat uintMat;
     floatMat.convertTo(uintMat, CV_8U);
     
-    threshold(uintMat, uintMat, 64, 255, THRESH_BINARY);
+    threshold(uintMat, uintMat, 16, 255, THRESH_BINARY);
     
     UIImage* debugImage = [OpenCVOps UIImageFromCVMat:uintMat];
     
@@ -403,6 +403,15 @@ using namespace cv;
     UIImage* debugImage = [OpenCVOps UIImageFromCVMat:diffMat];
     
     return overlapCount / (double)(right.rows * right.cols);
+}
+
++ (double)getAvgHueOfMat: (cv::Mat)image {
+    Mat hsvMat;
+    cvtColor(image, hsvMat, CV_BGRA2BGR);
+    cvtColor(hsvMat, hsvMat, CV_BGR2HSV);
+    vector<Mat> hsvPlanes;
+    split(hsvMat, hsvPlanes);
+    return mean(hsvPlanes[0])[0];
 }
 
 @end

@@ -34,4 +34,6 @@
 
 + (double)getSymmetryOfMat: (cv::Mat)image;
 
++ (double)getAvgHueOfMat: (cv::Mat)image;
+
 @end

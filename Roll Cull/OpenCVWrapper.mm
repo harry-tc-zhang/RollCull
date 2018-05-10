@@ -10,8 +10,10 @@
 #import "OpenCVOps.h"
 #import <opencv2/opencv.hpp>
 #import <UIKit/UIKit.h>
+#import <vector>
 
 using namespace cv;
+using namespace std;
 
 @implementation OpenCVWrapper
 
@@ -70,48 +72,92 @@ using namespace cv;
 + (NSDictionary*)evaluateQualityOfFaces: (NSArray*)faces inImage: (UIImage*)image {
     NSLog(@"Face evaluation");
     Mat imgMat = [OpenCVOps cvMatFromUIImage:image convertColor:false];
+    NSMutableDictionary* dict = [NSMutableDictionary dictionary];
+    [dict setObject:@"Face" forKey:@"Type"];
     for(int i = 0; i < [faces count]; i ++) {
         NSArray* face = (NSArray*)faces[i];
         Mat faceRegion = imgMat(cv::Rect([face[0] floatValue], [face[1] floatValue], [face[2] floatValue], [face[3] floatValue]));
-        NSArray* focusInfo = [OpenCVOps getFocusMeasureFromMat:faceRegion withStep:3];
+        NSArray* focusInfo = [OpenCVOps getFocusMeasureFromMat:faceRegion withStep:1];
         NSLog(@"%@", focusInfo);
+        [dict setObject:focusInfo forKey:@"Focus"];
         double exposureInfo = [OpenCVOps getAverageExposureOfMat:faceRegion];
         NSLog(@"%f", exposureInfo);
+        [dict setObject:[NSNumber numberWithDouble: exposureInfo] forKey:@"Exposure"];
+        double sizeInfo = ([face[2] floatValue] + [face[3] floatValue]) / 2;
+        NSLog(@"%f", sizeInfo);
+        [dict setObject:[NSNumber numberWithDouble: sizeInfo] forKey:@"Size"];
     }
-    return [NSMutableDictionary dictionary];
+    return dict;
 }
 
-+ (void)evaluateQuaityOfImage: (UIImage*)image {
++ (NSDictionary*)evaluateQuaityOfImage: (UIImage*)image {
     int gridNum = 5;
     int gridWidth = (int)(image.size.width / gridNum);
     int gridHeight = (int)(image.size.height / gridNum);
     
     Mat imgMat = [OpenCVOps cvMatFromUIImage:image convertColor:false];
-    double imgExposure = [OpenCVOps getAverageExposureOfMat:imgMat];
+    
+    NSMutableDictionary* dict = [NSMutableDictionary dictionary];
+    [dict setObject:@"Scene" forKey:@"Type"];
+    
+    // Stuff to be measured by region
+    double exposureMeasure = 0;
+    double focusXMeasure = 0;
+    double focusYMeasure = 0;
+    double regionCount = 0;
     
     for(int j = 0; j < gridNum; j ++) {
         for(int i = 0; i < gridNum; i ++) {
             cv::Rect rect(i * gridWidth, j * gridHeight, gridWidth, gridHeight);
             Mat currentRegion = imgMat(rect);
-            double regionExposure = [OpenCVOps getAverageExposureOfMat:currentRegion];
-            NSLog(@"Diff for region (%d, %d): %f", j, i, (regionExposure - imgExposure));
+            
             double textureDensity = [OpenCVOps getTextureDensityOfMat:currentRegion];
             NSLog(@"Texture density for region (%d, %d): %f", j, i, textureDensity);
+            // Discard foliage
+            if(textureDensity > 0.9) {
+                double avgHue = [OpenCVOps getAvgHueOfMat:currentRegion];
+                if((avgHue >= 80) && (avgHue <= 150)) {
+                    continue;
+                }
+            }
+            // Discard sky
+            if(textureDensity < 0.1) {
+                continue;
+            }
+            
+            double regionExposure = [OpenCVOps getAverageExposureOfMat:currentRegion];
+            exposureMeasure += regionExposure;
+            
+            NSArray* focusMeasures = [OpenCVOps getFocusMeasureFromMat:currentRegion withStep:1];
+            double focusX = [focusMeasures[0] doubleValue];
+            focusXMeasure = focusXMeasure > focusX ? focusXMeasure : focusX;
+            double focusY = [focusMeasures[1] doubleValue];
+            focusYMeasure = focusYMeasure > focusY ? focusYMeasure : focusY;
+            
+            regionCount += 1;
         }
     }
     
-    NSLog(@"Image exposure is %f", imgExposure);
+    NSLog(@"Focus measures: X %f, Y %f", focusXMeasure, focusYMeasure);
+    [dict setObject:[NSArray arrayWithObjects:[NSNumber numberWithDouble:focusXMeasure], [NSNumber numberWithDouble:focusYMeasure], nil] forKey:@"Focus"];
+    
+    exposureMeasure = exposureMeasure / regionCount;
+    NSLog(@"Image exposure is %f", exposureMeasure);
+    [dict setObject:[NSNumber numberWithDouble:exposureMeasure] forKey:@"Exposure"];
     
     double imgContrast = [OpenCVOps getContrastOfMat:imgMat];
     NSLog(@"Image contrast is %f", imgContrast);
+    [dict setObject:[NSNumber numberWithDouble:imgContrast] forKey:@"Contrast"];
     
     double imgSaturation = [OpenCVOps getSaturationOfMat:imgMat];
     NSLog(@"Image saturation is %f", imgSaturation);
+    [dict setObject:[NSNumber numberWithDouble:imgSaturation] forKey:@"Saturation"];
     
     double imageSymmetry = [OpenCVOps getSymmetryOfMat:imgMat];
     NSLog(@"Image symmetry is %f", imageSymmetry);
+    [dict setObject:[NSNumber numberWithDouble:imageSymmetry] forKey:@"Symmetry"];
     
-    return;
+    return dict;
 }
 
 @end

@@ -25,25 +25,17 @@ class GroupOverviewController: UICollectionViewController {
     let locRoundPower: Double = 100
     
     fileprivate let itemsPerRow: CGFloat = 2
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        //self.collectionView!.register(BurstOverviewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        
-        print("Burst preview loaded.")
-        
+    
+    func loadPhotoData () {
+        locationSets.removeAll()
+        locationKeys.removeAll()
         let allPhotosOptions = PHFetchOptions()
         allPhotosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         allPhotos = PHAsset.fetchAssets(with: allPhotosOptions)
         allPhotos.enumerateObjects{(object, index, stop) -> Void in
             if let cdate = object.creationDate {
                 let interval = cdate.timeIntervalSinceNow
-                if (-interval) / (24 * 60 * 60) > 7 {
+                if (-interval) / (24 * 60 * 60) > 30 {
                     stop.pointee = true
                 }
             }
@@ -63,12 +55,30 @@ class GroupOverviewController: UICollectionViewController {
                 }
             }
         }
+        collectionView?.reloadData()
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Register cell classes
+        //self.collectionView!.register(BurstOverviewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        
+        print("Burst preview loaded.")
         
         let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
         let availableWidth = view.frame.width - paddingSpace
         widthPerItem = availableWidth / itemsPerRow
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loadPhotoData()
     }
 
     override func didReceiveMemoryWarning() {

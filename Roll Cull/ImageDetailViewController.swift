@@ -14,6 +14,7 @@ class ImageDetailViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var attributes: UITextView!
     var asset = PHAsset()
+    var imageProps = [String:Any]()
     let imageManager = PHCachingImageManager()
     
     override func viewDidLoad() {
@@ -30,6 +31,17 @@ class ImageDetailViewController: UIViewController {
             self.imageView.image = image;
             OpenCVWrapper.evaluateQuaity(of: image);
         })
+        
+        var displayStr: String = ""
+        for (key, val) in imageProps {
+            if key == "Focus" {
+                let focusInfo = val as! [Double]
+                displayStr += "\(key): X - \(focusInfo[0]), Y - \(focusInfo[1])\n"
+            } else {
+                displayStr += "\(key): \(val)\n"
+            }
+        }
+        attributes.text = displayStr;
         
         // Do any additional setup after loading the view.
     }
